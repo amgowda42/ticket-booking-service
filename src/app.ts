@@ -9,6 +9,7 @@ import authRoutes from "./routes/auth.route.ts";
 import eventRoutes from "./routes/event.route.ts";
 import bookingRoutes from "./routes/booking.route.ts";
 import metricsRoutes from "./routes/metrics.route.ts";
+import { errorHandler, notFoundHandler } from "./middlewares/error.middleware.ts";
 
 const app: Express = express();
 
@@ -29,5 +30,8 @@ app.use("/auth", authRoutes);
 app.use("/events", eventRoutes);
 app.use("/bookings", bookingRoutes);
 app.use("/metrics", metricsRoutes);
+
+app.use(notFoundHandler);
+app.use(errorHandler);
 
 export default app;

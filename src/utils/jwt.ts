@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
+import type { JwtPayload as JsonWebTokenPayload } from "jsonwebtoken";
 import { env } from "../config/env.ts";
 
-export interface JwtPayload {
+export interface JwtPayload extends JsonWebTokenPayload {
   sub: string;
   role: "user" | "admin";
   email: string;

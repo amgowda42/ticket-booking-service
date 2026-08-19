@@ -1,4 +1,3 @@
-// src/config/db.ts
 import mongoose from "mongoose";
 import { env } from "./env.ts";
 import logger from "../logger/logger.ts";

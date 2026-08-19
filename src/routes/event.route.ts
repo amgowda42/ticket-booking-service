@@ -8,6 +8,6 @@ import { requireAuth, requireRole } from "../middlewares/auth.middleware.ts";
 const router = Router();
 
 router.post("/", requireAuth, requireRole("admin"), createEvent);
-router.get("/", listEvents);
+router.get("/", requireAuth, listEvents);
 
 export default router;

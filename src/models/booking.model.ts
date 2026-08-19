@@ -1,4 +1,3 @@
-// src/models/booking.model.ts
 import { Schema, model, Types } from "mongoose";
 
 export interface IBooking {

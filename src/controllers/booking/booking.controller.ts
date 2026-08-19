@@ -59,15 +59,22 @@ export const listMyBookings = async (req: AuthedRequest, res: Response) => {
 };
 
 export const confirmBooking = async (req: AuthedRequest, res: Response) => {
-  const booking = await Booking.findOneAndUpdate(
+  const bookingId = req.params.bookingId;
+  if (typeof bookingId !== "string" || !mongoose.isObjectIdOrHexString(bookingId)) {
+    throw new AppError(400, "Invalid booking identifier", {
+      bookingId: ["Booking ID is invalid"],
+    });
+  }
+
+  const booking = await Booking.collection.findOneAndUpdate(
     {
-      id: req.params.bookingId,
-      user: req.user!.sub,
+      _id: new mongoose.Types.ObjectId(bookingId),
+      user: new mongoose.Types.ObjectId(req.user!.sub),
       status: "pending",
       expiresAt: { $gt: new Date() },
     },
-    { status: "confirmed" },
-    { new: true },
+    { $set: { status: "confirmed", updatedAt: new Date() } },
+    { returnDocument: "after" },
   );
 
   if (!booking) {

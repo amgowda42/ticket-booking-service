@@ -68,7 +68,7 @@ export default function HomePage() {
   return (
     <div className="mx-auto w-full max-w-7xl px-5 py-8 sm:px-8 lg:py-12">
       <section className="relative overflow-hidden rounded-3xl border border-border/70 bg-card px-6 py-8 shadow-2xl shadow-black/10 sm:px-10 sm:py-10">
-        <div className="pointer-events-none absolute -right-20 -top-24 size-72 rounded-full border-[32px] border-accent/10" />
+        <div className="pointer-events-none absolute -right-20 -top-24 size-72 rounded-full border-32 border-accent/10" />
         <div className="relative max-w-2xl">
           <p className="text-sm font-medium uppercase tracking-[0.18em] text-accent">
             Your event desk
@@ -453,7 +453,7 @@ function StateCard({
 }) {
   return (
     <Card
-      className={`mt-6 border-destructive/30 bg-destructive/[0.04] p-6 ${className ?? ""}`}
+      className={`mt-6 border-destructive/30 bg-destructive/4 p-6 ${className ?? ""}`}
     >
       <div className="flex size-10 items-center justify-center rounded-xl bg-destructive/10 text-destructive">
         {icon}

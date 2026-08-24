@@ -11,6 +11,7 @@ services:
       - PORT=8001
       - MONGO_URI=${MONGO_URI}
       - JWT_SECRET=${JWT_SECRET}
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
     restart: unless-stopped
 
   nginx:
@@ -23,3 +24,11 @@ services:
     depends_on:
       - app
     restart: unless-stopped
+
+  jaeger:
+    image: jaegertracing/jaeger:latest
+    restart: unless-stopped
+    ports:
+      - "16686:16686"
+      - "4317:4317"
+      - "4318:4318"

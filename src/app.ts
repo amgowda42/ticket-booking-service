@@ -10,6 +10,7 @@ import eventRoutes from "./routes/event.route.ts";
 import bookingRoutes from "./routes/booking.route.ts";
 import metricsRoutes from "./routes/metrics.route.ts";
 import { errorHandler, notFoundHandler } from "./middlewares/error.middleware.ts";
+import {metricsMiddleware} from "./middlewares/metrics.middleware.ts";
 
 const app: Express = express();
 
@@ -24,6 +25,7 @@ app.use(
     logger,
   }),
 );
+app.use(metricsMiddleware);
 
 app.use("/health", healthRoutes);
 app.use("/auth", authRoutes);

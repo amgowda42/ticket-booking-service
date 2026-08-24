@@ -11,7 +11,9 @@ services:
       - PORT=8001
       - MONGO_URI=${MONGO_URI}
       - JWT_SECRET=${JWT_SECRET}
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+    depends_on:
+      - otel-collector
     restart: unless-stopped
 
   nginx:
@@ -32,3 +34,13 @@ services:
       - "16686:16686"
       - "4317:4317"
       - "4318:4318"
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    container_name: ticket-otel-collector
+    command: ["--config=/etc/otelcol-contrib/config.yaml"]
+    volumes:
+      - ./otel-collector-config.yml:/etc/otelcol-contrib/config.yaml:ro
+    depends_on:
+      - jaeger
+    restart: unless-stopped

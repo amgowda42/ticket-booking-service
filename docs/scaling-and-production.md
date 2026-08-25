@@ -2,7 +2,7 @@
 
 ## Current deployment
 
-Docker Compose runs one API container behind one Nginx container. MongoDB is external to the Compose stack. This is appropriate for development and small controlled environments, not a highly available public service.
+Docker Compose runs one API container behind one Nginx container, with OpenTelemetry Collector, Jaeger, Prometheus, and Grafana for local observability. MongoDB is external to the Compose stack. This is appropriate for development and small controlled environments, not a highly available public service.
 
 ## Production target
 

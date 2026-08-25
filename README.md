@@ -13,10 +13,11 @@ A containerised ticket-booking API for creating events, reserving seats, confirm
 - Docker multi-stage build, non-root runtime user, health endpoint, graceful shutdown
 - Nginx reverse proxy with booking-route rate limiting
 - Structured Pino logs and a Prometheus-compatible `/metrics` endpoint
+- OpenTelemetry traces and metrics through an OTLP Collector, Jaeger, Prometheus, and Grafana
 
 ## Technology
 
-Node.js, TypeScript, Express, MongoDB/Mongoose, JWT, Docker, Docker Compose, Nginx, Pino, and Prometheus client libraries. A Next.js client application lives in [`view/`](view/).
+Node.js, TypeScript, Express, MongoDB/Mongoose, JWT, Docker, Docker Compose, Nginx, Pino, OpenTelemetry, Jaeger, Prometheus, and Grafana. A Next.js client application lives in [`view/`](view/).
 
 ## Quick start
 
@@ -48,19 +49,21 @@ For a production-style container build, set `MONGO_URI` and `JWT_SECRET` in your
 docker compose up --build
 ```
 
+The Compose stack exposes the API through Nginx on `http://localhost`, the API directly on `http://localhost:8001`, Jaeger on `http://localhost:16686`, Prometheus on `http://localhost:9090`, and Grafana on `http://localhost:3000`.
+
 ## Documentation
 
 The complete Markdown documentation is in [`docs/`](docs/README.md).
 
-| Topic | Description |
-| --- | --- |
-| [Architecture](docs/architecture.md) | Current component layout and request paths |
-| [API reference](docs/api-reference.md) | Routes, access control, and request examples |
-| [Booking lifecycle](docs/booking-lifecycle.md) | Inventory protection and expiry behaviour |
-| [Local development](docs/local-development.md) | Setup, environment, and commands |
-| [Data model](docs/data-model.md) | MongoDB collections and relationships |
-| [Operations](docs/operations.md) | Health, logging, metrics, containers, and runbooks |
-| [Scaling & production](docs/scaling-and-production.md) | Current limits and production target architecture |
+| Topic                                                  | Description                                        |
+| ------------------------------------------------------ | -------------------------------------------------- |
+| [Architecture](docs/architecture.md)                   | Current component layout and request paths         |
+| [API reference](docs/api-reference.md)                 | Routes, access control, and request examples       |
+| [Booking lifecycle](docs/booking-lifecycle.md)         | Inventory protection and expiry behaviour          |
+| [Local development](docs/local-development.md)         | Setup, environment, and commands                   |
+| [Data model](docs/data-model.md)                       | MongoDB collections and relationships              |
+| [Operations](docs/operations.md)                       | Health, logging, metrics, containers, and runbooks |
+| [Scaling & production](docs/scaling-and-production.md) | Current limits and production target architecture  |
 
 ## Repository layout
 
@@ -69,8 +72,10 @@ src/       Express API, domain models, controllers, jobs, and configuration
 view/      Next.js web client
 docs/      Project documentation
 Dockerfile Production API image
-docker-compose.yml  API and Nginx local deployment
+docker-compose.yml  API, observability stack, and Nginx local deployment
 nginx.conf Reverse proxy and booking rate-limit configuration
+otel-collector-config.yml OpenTelemetry Collector pipelines
+prometheus.yml Prometheus scrape configuration
 ```
 
 ## Security note

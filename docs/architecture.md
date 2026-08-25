@@ -11,9 +11,15 @@ flowchart LR
   J --> M
   A --> L[Structured logs]
   A --> H[/health and /metrics]
+  A --> O[OTLP Collector]
+  O --> JG[Jaeger]
+  O --> P[Prometheus]
+  P --> G[Grafana]
 ```
 
 The API is a TypeScript Express service. It exposes authentication, events, bookings, health, and metrics routes. Mongoose persists `User`, `Event`, and `Booking` data in MongoDB.
+
+The API is instrumented with OpenTelemetry auto-instrumentations. It exports traces and metrics over OTLP gRPC to the OpenTelemetry Collector. The collector forwards traces to Jaeger and exposes application metrics for Prometheus to scrape. Grafana is available for dashboards but is not currently provisioned with datasources or dashboards.
 
 The service starts an expiry sweep every 60 seconds. It finds pending bookings past their ten-minute hold deadline, marks them expired, and restores their seats in a MongoDB transaction.
 

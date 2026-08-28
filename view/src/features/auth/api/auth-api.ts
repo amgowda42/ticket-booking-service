@@ -33,7 +33,20 @@ export const authApi = baseApi.injectEndpoints({
       query: () => ({ url: "/auth/logout", method: "POST" }),
       invalidatesTags: ["Auth", "Bookings", "Events"],
     }),
+    exchangeGoogleOAuthCode: builder.mutation<AuthResponse, { code: string }>({
+      query: (body) => ({
+        url: "/auth/oauth/google/exchange",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["Auth"],
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useLogoutMutation } = authApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useLogoutMutation,
+  useExchangeGoogleOAuthCodeMutation,
+} = authApi;

@@ -9,6 +9,10 @@ const envSchema = z.object({
   APP_NAME: z.string().default("ticket-booking-service"),
   MONGO_URI: z.string().min(1, "MONGO_URI is required"),
   JWT_SECRET: z.string().min(1, "JWT_SECRET is required"),
+  GOOGLE_CLIENT_ID: z.string().optional(),
+  GOOGLE_CLIENT_SECRET: z.string().optional(),
+  GOOGLE_CALLBACK_URL: z.string().url().optional(),
+  FRONTEND_URL: z.string().url().optional(),
 });
 
 const parsed = envSchema.safeParse(process.env);
@@ -27,4 +31,8 @@ export const env = {
   appName: parsed.data.APP_NAME,
   mongoUri: parsed.data.MONGO_URI,
   jwtSecret: parsed.data.JWT_SECRET,
+  googleClientId: parsed.data.GOOGLE_CLIENT_ID,
+  googleClientSecret: parsed.data.GOOGLE_CLIENT_SECRET,
+  googleCallbackUrl: parsed.data.GOOGLE_CALLBACK_URL,
+  frontendUrl: parsed.data.FRONTEND_URL,
 };

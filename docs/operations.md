@@ -12,7 +12,7 @@ Pino emits structured application and HTTP logs. In production, send stdout/stde
 
 `GET /metrics` exposes the Prometheus registry, default process metrics, HTTP request duration, and in-flight request metrics. The OpenTelemetry SDK also exports metrics over OTLP to the collector. Prometheus scrapes the collector's Prometheus endpoint, and Grafana can query Prometheus for dashboards.
 
-Prometheus is available at `http://localhost:9090`, Grafana at `http://localhost:3000`, and Jaeger at `http://localhost:16686`. The collector is an internal Compose service named `otel-collector` and listens for OTLP gRPC on port 4317 and OTLP HTTP on port 4318.
+Prometheus is available at `http://localhost:9090`, Grafana at `http://localhost:3001`, and Jaeger at `http://localhost:16686`. The collector is an internal Compose service named `otel-collector` and listens for OTLP gRPC on port 4317 and OTLP HTTP on port 4318.
 
 Grafana does not currently have datasources or dashboards provisioned automatically. Add Prometheus (`http://prometheus:9090`) and Jaeger (`http://jaeger:16686`) as Grafana data sources after signing in when using the local stack.
 

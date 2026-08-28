@@ -35,7 +35,7 @@ npm run profile:doctor  # profiles the compiled server with Clinic.js
 
 ## Container workflow
 
-Docker Compose builds the API image and starts the observability stack and Nginx. The API is exposed directly on port 8001 and through Nginx on port 80. Jaeger, Prometheus, and Grafana are available on ports 16686, 9090, and 3000 respectively. It expects `MONGO_URI` and `JWT_SECRET` in the shell environment or `.env` file.
+Docker Compose builds the API image and starts the observability stack and Nginx. The API is exposed directly on port 8001 and through Nginx on port 80. Jaeger, Prometheus, and Grafana are available on ports 16686, 9090, and 3001 respectively. It expects `MONGO_URI` and `JWT_SECRET` in the shell environment or `.env` file.
 
 ```bash
 docker compose up --build

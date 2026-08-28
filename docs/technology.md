@@ -15,7 +15,7 @@
 | OpenTelemetry Collector | Telemetry gateway                   | Receives OTLP data, forwards traces to Jaeger, and exposes metrics to Prometheus |
 | Jaeger                  | Trace storage and UI                | Local trace inspection at `http://localhost:16686`                               |
 | Prometheus              | Metrics storage and query           | Scrapes collector metrics at `http://localhost:9090`                             |
-| Grafana                 | Metrics and trace dashboards        | Local dashboard UI at `http://localhost:3000`; setup is currently manual         |
+| Grafana                 | Metrics and trace dashboards        | Local dashboard UI at `http://localhost:3001`; setup is currently manual         |
 | Redis/ioredis           | Dependency only; not integrated yet | Intended for distributed locks, queues, caching, or rate limits when required    |
 
 The Next.js app in `view/` is the web-client foundation. Its user flows should stay aligned with the API contract in [API reference](api-reference.md).

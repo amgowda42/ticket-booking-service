@@ -49,7 +49,7 @@ For a production-style container build, set `MONGO_URI` and `JWT_SECRET` in your
 docker compose up --build
 ```
 
-The Compose stack exposes the API through Nginx on `http://localhost`, the API directly on `http://localhost:8001`, Jaeger on `http://localhost:16686`, Prometheus on `http://localhost:9090`, and Grafana on `http://localhost:3000`.
+The Compose stack exposes the API through Nginx on `http://localhost`, the API directly on `http://localhost:8001`, Jaeger on `http://localhost:16686`, Prometheus on `http://localhost:9090`, and Grafana on `http://localhost:3001`.
 
 ## Documentation
 

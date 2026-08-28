@@ -16,3 +16,7 @@ export const loginSchema = z.object({
   email: emailSchema,
   password: z.string().min(1, "Password is required"),
 });
+
+export const oauthExchangeSchema = z.object({
+  code: z.string().trim().min(1, "OAuth code is required"),
+});

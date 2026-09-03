@@ -35,7 +35,11 @@ const OAuthAccount: mongoose.Model<OAuthAccountDocument> =
     "OAuthAccount",
     new mongoose.Schema<OAuthAccountDocument>(
       {
-        user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+          required: true,
+        },
         provider: { type: String, required: true },
         providerAccountId: { type: String, required: true },
         email: { type: String, required: true },
@@ -52,13 +56,18 @@ type OAuthAccountLoginDocument = {
 };
 
 const OAuthAccountLogin: mongoose.Model<OAuthAccountLoginDocument> =
-  (mongoose.models.OAuthAccountLogin as mongoose.Model<OAuthAccountLoginDocument>) ??
+  (mongoose.models
+    .OAuthAccountLogin as mongoose.Model<OAuthAccountLoginDocument>) ??
   mongoose.model<OAuthAccountLoginDocument>(
     "OAuthAccountLogin",
     new mongoose.Schema(
       {
         codeHash: { type: String, required: true, unique: true },
-        user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+          required: true,
+        },
         expiresAt: { type: Date, required: true },
         usedAt: { type: Date },
       },
@@ -97,6 +106,7 @@ export const register = async (req: Request, res: Response) => {
     sub: user._id.toString(),
     role: user.role,
     email: user.email,
+    name: user.name,
   });
 
   res.status(201).json({ success: true, token });
@@ -114,6 +124,7 @@ export const login = async (req: Request, res: Response) => {
     sub: user._id.toString(),
     role: user.role,
     email: user.email,
+    name: user.name,
   });
   res.status(200).json({ success: true, token });
 };
@@ -247,6 +258,7 @@ export const exchangeGoogleOAuthCode = async (req: Request, res: Response) => {
     sub: user._id.toString(),
     role: user.role,
     email: user.email,
+    name: user.name,
   });
   res.status(200).json({ success: true, token });
 };

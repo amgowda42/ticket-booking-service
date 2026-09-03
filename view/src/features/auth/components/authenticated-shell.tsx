@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { CalendarDays, LogOut, Plus, Ticket } from "lucide-react";
-import { type ReactNode } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 
 import { BrandMark } from "@/components/brand/brand-mark";
 import { Button } from "@/components/ui/button";
@@ -14,9 +14,15 @@ import { toast } from "sonner";
 function AuthenticatedShell({ children }: { children: ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
+  const [currentTime, setCurrentTime] = useState(() => new Date());
 
   const session = getSession();
   const [logout, { isLoading: isLoggingOut }] = useLogoutMutation();
+
+  useEffect(() => {
+    const clock = window.setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => window.clearInterval(clock);
+  }, []);
 
   async function signOut() {
     try {
@@ -71,6 +77,29 @@ function AuthenticatedShell({ children }: { children: ReactNode }) {
               </button>
             )}
           </nav>
+          <div className="hidden items-center gap-3 lg:flex">
+            <div className="text-right">
+              <p className="text-sm font-semibold leading-tight">
+                {session?.name}
+              </p>
+              <p className="mt-0.5 text-[11px] text-muted-foreground">
+                Welcome back
+              </p>
+            </div>
+            <time
+              className="rounded-lg border border-border/70 bg-card/60 px-3 py-2 font-mono text-sm font-medium tabular-nums text-foreground shadow-sm"
+              dateTime={currentTime.toISOString()}
+              title={currentTime.toLocaleDateString(undefined, {
+                dateStyle: "full",
+              })}
+            >
+              {currentTime.toLocaleTimeString(undefined, {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+              })}
+            </time>
+          </div>
           <Button
             variant="ghost"
             size="sm"
@@ -79,7 +108,9 @@ function AuthenticatedShell({ children }: { children: ReactNode }) {
             aria-label="Sign out"
           >
             <LogOut aria-hidden="true" />
-            <span className="hidden sm:inline">{isLoggingOut ? "Signing out..." : "Sign out"}</span>
+            <span className="hidden sm:inline">
+              {isLoggingOut ? "Signing out..." : "Sign out"}
+            </span>
           </Button>
         </div>
       </header>

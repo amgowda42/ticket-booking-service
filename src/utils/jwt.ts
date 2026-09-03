@@ -6,6 +6,7 @@ export interface JwtPayload extends JsonWebTokenPayload {
   sub: string;
   role: "user" | "admin";
   email: string;
+  name: string;
 }
 
 export const signToken = (payload: JwtPayload): string => {

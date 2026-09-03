@@ -5,6 +5,7 @@ let cachedSession: Session | null = null;
 export type Session = {
   userId: string;
   email: string;
+  name: string;
   role: "user" | "admin";
   expiresAt: number;
 };
@@ -12,6 +13,7 @@ export type Session = {
 type JwtClaims = {
   sub?: string;
   email?: string;
+  name?: string;
   role?: "user" | "admin";
   exp?: number;
 };
@@ -45,8 +47,16 @@ export function getSession(): Session | null {
   try {
     const payload = token.split(".")[1];
     if (!payload) return null;
-    const claims = JSON.parse(atob(payload.replace(/-/g, "+").replace(/_/g, "/"))) as JwtClaims;
-    if (!claims.sub || !claims.email || !claims.exp || (claims.role !== "user" && claims.role !== "admin")) return null;
+    const claims = JSON.parse(
+      atob(payload.replace(/-/g, "+").replace(/_/g, "/")),
+    ) as JwtClaims;
+    if (
+      !claims.sub ||
+      !claims.email ||
+      !claims.exp ||
+      (claims.role !== "user" && claims.role !== "admin")
+    )
+      return null;
     if (claims.exp * 1000 <= Date.now()) {
       clearAccessToken();
       return null;
@@ -54,6 +64,7 @@ export function getSession(): Session | null {
     cachedSession = {
       userId: claims.sub,
       email: claims.email,
+      name: claims.name?.trim() || claims.email.split("@")[0],
       role: claims.role,
       expiresAt: claims.exp * 1000,
     };

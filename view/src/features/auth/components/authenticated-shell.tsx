@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 import { CalendarDays, LogOut, Plus, Ticket } from "lucide-react";
 import { type ReactNode, useEffect, useState } from "react";
 
@@ -39,42 +40,35 @@ function AuthenticatedShell({ children }: { children: ReactNode }) {
     <div className="min-h-screen bg-background text-foreground">
       <header className="border-b border-border/70 bg-background/90 backdrop-blur">
         <div className="mx-auto flex h-18 w-full max-w-7xl items-center justify-between px-5 sm:px-8">
-          <button
-            type="button"
-            onClick={() => router.push("/")}
-            aria-label="Seatwise home"
-          >
+          <Link href="/" aria-label="Seatwise home">
             <BrandMark />
-          </button>
+          </Link>
           <nav
             className="flex items-center gap-1 rounded-xl border border-border/70 bg-card/60 p-1"
             aria-label="Main navigation"
           >
-            <button
-              type="button"
+            <Link
+              href="/"
               className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${pathname === "/" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}
-              onClick={() => router.push("/")}
             >
               <CalendarDays className="size-4" aria-hidden="true" />
               Discover
-            </button>
-            <button
-              type="button"
-              className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-              onClick={() => router.push("/#bookings")}
+            </Link>
+            <Link
+              href="/bookings"
+              className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${pathname === "/bookings" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}
             >
               <Ticket className="size-4" aria-hidden="true" />
               My bookings
-            </button>
+            </Link>
             {session?.role === "admin" && (
-              <button
-                type="button"
+              <Link
+                href="/events/new"
                 className="hidden items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:flex"
-                onClick={() => router.push("/events/new")}
               >
                 <Plus className="size-4" aria-hidden="true" />
                 Create event
-              </button>
+              </Link>
             )}
           </nav>
           <div className="hidden items-center gap-3 lg:flex">

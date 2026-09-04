@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Footer } from "@/components/layout/footer";
 import { StoreProvider } from "@/store/provider";
 import { AppToaster } from "@/components/ui/toaster";
 
@@ -10,12 +11,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className="dark h-full antialiased"
-    >
+    <html lang="en" className="dark h-full antialiased">
       <body className="min-h-full flex flex-col">
         <StoreProvider>{children}</StoreProvider>
+        <Footer />
         <AppToaster />
       </body>
     </html>

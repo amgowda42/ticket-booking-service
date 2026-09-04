@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { useExchangeGoogleOAuthCodeMutation } from "@/features/auth/api/auth-api";
@@ -43,12 +44,9 @@ export default function OAuthCallbackPage() {
         <div>
           <h1 className="text-xl font-semibold">Sign-in failed</h1>
           <p className="mt-2 text-sm text-muted-foreground">{error}</p>
-          <button
-            className="mt-5 text-sm font-medium text-primary"
-            onClick={() => router.replace("/login")}
-          >
+          <Link href="/login" className="mt-5 text-sm font-medium text-primary">
             Return to sign in
-          </button>
+          </Link>
         </div>
       </main>
     );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { type FormEvent, useState } from "react";
 import {
   ArrowRight,
@@ -159,13 +160,12 @@ function AuthForm({ mode }: { mode: AuthMode }) {
       </Button>
       <p className="mt-6 text-center text-sm text-muted-foreground">
         {isRegister ? "Already have an account?" : "New to Seatwise?"}{" "}
-        <button
-          type="button"
+        <Link
+          href={isRegister ? "/login" : "/register"}
           className="font-medium text-primary hover:text-primary/80"
-          onClick={() => router.push(isRegister ? "/login" : "/register")}
         >
           {isRegister ? "Sign in" : "Create an account"}
-        </button>
+        </Link>
       </p>
     </Card>
   );
